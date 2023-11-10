@@ -1,6 +1,6 @@
 # Football-Yellow-Pages
 A digital phone book for the football world
-The dafualt password when login in as user is always: 1234
+The dafualt password when login in as admin is always: 1234
 
 There are some bugs of course and the code be so much cleaner but CRUD functionality is there.
 
