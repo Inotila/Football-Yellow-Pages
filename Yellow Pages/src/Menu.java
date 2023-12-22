@@ -46,14 +46,28 @@ public class Menu {
                         userRole = "Guest user";
                         break;
                     case 2:
-                        userRole = userStatus.login();
+                        userRole = userStatus.adminLogin();
                         break;
                     case 3:
                         userStatus.createUserAccount();
+                        userRole = "User";
                         break;
                     case 4:
                         userStatus.deleteUserAccount();
+                        if (userStatus.isAccountDeletedSuccessfully()) {
+                            userStatus.resetAccountDeletionFlag();
+                            return menuDisplay(); // Redirect to menuDisplay() after successful account deletion
+                        }
                         break;
+                    case 5:
+                        if (userStatus.userLogin()) {
+                            userRole = "User";
+                            System.out.println("Logged in successfully.");
+                        } else {
+                            System.out.println("Invalid username or password!");
+                        }
+                        break;
+
                     default:
                         System.out.println("Invalid choice. Please enter a valid option.");
                         continue;
@@ -74,8 +88,8 @@ public class Menu {
                 }
                 userMenuChoice = scanner.nextInt();
 
-                if (userMenuChoice == 4 && userRole.equals("admin")) {
-                    // Logout option for admin
+                if (userMenuChoice == 4 && (userRole.equals("User") || userRole.equals("admin"))) {
+                    userStatus.logout();
                     userRole = "Guest user";
                     System.out.println("Logged out successfully.");
                     continue; // Return to the main menu

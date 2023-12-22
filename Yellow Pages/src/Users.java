@@ -8,13 +8,16 @@ public class Users {
     String userType;
     Scanner scanner = new Scanner(System.in);
     int defaultPassword = 1234;
-    private Map<String, String> userCredentials; // Stores usernames and passwords
+    private boolean loggedIn;
+    private Map<String, String> userCredentials; // Stores usernames and
+    private boolean accountDeletedSuccessfully = false;
+
     public Users() {
         userCredentials = new HashMap<>();
     }
 
 
-    public String login() {
+    public String adminLogin() {
         // Default password
         int defaultPassword = 1234;
         int defaultPasswordEntry;
@@ -79,10 +82,11 @@ public class Users {
 
         userCredentials.put(newUsername, newPassword);
         System.out.println("Account created successfully!");
+
     }
 
     public void deleteUserAccount() {
-        System.out.println("Enter your username:");
+        System.out.println("Enter username you would like to delete:");
         String usernameToDelete = scanner.next();
 
         if (!userCredentials.containsKey(usernameToDelete)) {
@@ -90,15 +94,51 @@ public class Users {
             return;
         }
 
-        System.out.println("Enter your password:");
+        System.out.println("Enter password of account:");
         String passwordToDelete = scanner.next();
 
         String storedPassword = userCredentials.get(usernameToDelete);
         if (passwordToDelete.equals(storedPassword)) {
             userCredentials.remove(usernameToDelete);
             System.out.println("Account deleted successfully!");
+            accountDeletedSuccessfully = true;
+            return;
         } else {
             System.out.println("Incorrect password. Account deletion failed.");
         }
+    }
+
+    public boolean userLogin() {
+        if (accountDeletedSuccessfully) {
+            System.out.println("Returning to main menu...");
+            accountDeletedSuccessfully = false; //
+            return false; //
+        }
+
+        System.out.println("Enter your username:");
+        String username = scanner.next();
+        System.out.println("Enter your password:");
+        String password = scanner.next();
+
+        if (userCredentials.containsKey(username)) {
+            String storedPassword = userCredentials.get(username);
+            if (password.equals(storedPassword)) {
+                loggedIn = true;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void logout() {
+        loggedIn = false;
+    }
+
+    public boolean isAccountDeletedSuccessfully() {
+        return accountDeletedSuccessfully;
+    }
+
+    public void resetAccountDeletionFlag() {
+        accountDeletedSuccessfully = false;
     }
 }
