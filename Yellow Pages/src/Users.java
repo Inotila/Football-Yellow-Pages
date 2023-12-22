@@ -9,13 +9,12 @@ public class Users {
     Scanner scanner = new Scanner(System.in);
     int defaultPassword = 1234;
     private boolean loggedIn;
-    private Map<String, String> userCredentials; // Stores usernames and
+    private Map<String, String> userCredentials; // Stores usernames and passwords
     private boolean accountDeletedSuccessfully = false;
 
     public Users() {
         userCredentials = new HashMap<>();
     }
-
 
     public String adminLogin() {
         // Default password
