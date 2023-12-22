@@ -43,7 +43,7 @@ public class Menu {
 
                 switch (loginChoice) {
                     case 1:
-                        userRole = userStatus.userStatus();
+                        userRole = "Guest user";
                         break;
                     case 2:
                         userRole = userStatus.login();

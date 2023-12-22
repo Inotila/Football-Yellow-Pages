@@ -12,12 +12,7 @@ public class Users {
     public Users() {
         userCredentials = new HashMap<>();
     }
-    public String userStatus() {
 
-
-                    return userType = "Guest user";
-
-    }
 
     public String login() {
         // Default password
