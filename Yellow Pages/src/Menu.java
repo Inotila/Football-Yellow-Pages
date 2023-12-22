@@ -27,15 +27,40 @@ public class Menu {
     public int menuDisplay(){
         // get users status
         Users userStatus = new Users();
-        userRole = userStatus.userStatus();
-        System.out.println("Your role is: " + userRole + "\n");
+//        userRole = userStatus.userStatus();
 
         //Menu options
         while (true) {
             try {
                 System.out.println("Main menu:");
 
+                // Check user's status or offer account creation/deletion
+                System.out.println("If you are a guest, enter: 1 | If you are an admin, enter: 2");
+                System.out.println("To create an account, enter: 3 | To delete an account, enter: 4");
+
+                int statusChoice = scanner.nextInt();
+
+                switch (statusChoice) {
+                    case 1:
+                        userRole = userStatus.userStatus();
+                        break;
+                    case 2:
+                        userRole = userStatus.login();
+                        break;
+                    case 3:
+                        userStatus.createUserAccount();
+                        break;
+                    case 4:
+                        userStatus.deleteUserAccount();
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please enter a valid option.");
+                        continue;
+                }
+
                 String[] menu = getMenu(userRole);
+
+                System.out.println("Your role is: " + userRole + "\n");
 
                 System.out.println( "Select your your option by entering a number from 1 - " + menu.length);
                 for (int i=0; i < menu.length; i++ ) {
@@ -64,5 +89,24 @@ public class Menu {
                 scanner.next(); // Consume the invalid input
             }
         }
+    }
+
+    private String[] fetchMenu(String userRole) {
+        String[] menu;
+        if (userRole.equals("Guest user")) {
+            menu = new String[]{
+                    "1. View contacts",
+                    "2. Search for contact",
+                    "3. Exit"
+            };
+        } else {
+            menu = new String[]{
+                    "1. View contacts",
+                    "2. Search for contact",
+                    "3. Edit contacts",
+                    "4. Exit"
+            };
+        }
+        return menu;
     }
 }
