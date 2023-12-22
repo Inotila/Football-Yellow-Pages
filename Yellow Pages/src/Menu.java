@@ -18,7 +18,8 @@ public class Menu {
                     "1. View contacts",
                     "2. Search for contact",
                     "3. Edit contacts",
-                    "4. Exit"
+                    "4. Logout",
+                    "5. Exit"
             };
         }
         return menu;
@@ -37,10 +38,10 @@ public class Menu {
                 // Check user's status or offer account creation/deletion
                 System.out.println("If you are a guest, enter: 1 | If you are an admin, enter: 2");
                 System.out.println("To create an account, enter: 3 | To delete an account, enter: 4");
+                System.out.println("To login into your account, enter: 5 ");
+                int loginChoice = scanner.nextInt();
 
-                int statusChoice = scanner.nextInt();
-
-                switch (statusChoice) {
+                switch (loginChoice) {
                     case 1:
                         userRole = userStatus.userStatus();
                         break;
@@ -60,7 +61,7 @@ public class Menu {
 
                 String[] menu = getMenu(userRole);
 
-                System.out.println("Your role is: " + userRole + "\n");
+                System.out.println("Your are logged in as a: " + userRole + "\n");
 
                 System.out.println( "Select your your option by entering a number from 1 - " + menu.length);
                 for (int i=0; i < menu.length; i++ ) {
@@ -72,6 +73,13 @@ public class Menu {
                     }
                 }
                 userMenuChoice = scanner.nextInt();
+
+                if (userMenuChoice == 4 && userRole.equals("admin")) {
+                    // Logout option for admin
+                    userRole = "Guest user";
+                    System.out.println("Logged out successfully.");
+                    continue; // Return to the main menu
+                }
 
                 if (userMenuChoice < menu.length+1 ) {
                     System.out.println(menu[userMenuChoice - 1]);
@@ -85,7 +93,7 @@ public class Menu {
                     }
                 }
             } catch (Exception e) {
-                System.out.println("Error: Input is not an number."+ "\n");
+                System.out.println("Error: Input is not an number."+ "\n" + "try again!");
                 scanner.next(); // Consume the invalid input
             }
         }
@@ -104,7 +112,8 @@ public class Menu {
                     "1. View contacts",
                     "2. Search for contact",
                     "3. Edit contacts",
-                    "4. Exit"
+                    "4. Logout",
+                    "5. Exit"
             };
         }
         return menu;

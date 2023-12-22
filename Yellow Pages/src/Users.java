@@ -13,21 +13,10 @@ public class Users {
         userCredentials = new HashMap<>();
     }
     public String userStatus() {
-        while (true) {
-            // have user choose there status
-            System.out.println("If you are a guest enter: 1 | If you are an admin enter: 2");
-            int userLoginChoice = scanner.nextInt();
 
-            if (userLoginChoice == 1 || userLoginChoice == 2) {
-                if (userLoginChoice == 2) {
-                    return userType = login();
-                } else  {
+
                     return userType = "Guest user";
-                }
-            } else {
-                System.out.print("You selected " + userLoginChoice + " : invalid entry! please try again" + "\n");
-            }
-        }
+
     }
 
     public String login() {
